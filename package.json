@@ -1,0 +1,46 @@
+{
+  "name": "@mk/url",
+  "version": "1.0.0",
+  "description": "a package handling url parse and regeneration",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "scripts": {
+    "test": "mocha",
+    "clean": "npx rimraf es lib",
+    "babel:es": "babel src --out-dir es",
+    "babel:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
+    "build": "npm run clean && npm run babel:es && npm run babel:commonjs"
+  },
+  "keywords": [
+    "url",
+    "search",
+    "parse"
+  ],
+  "author": {
+    "name": "xiang liu",
+    "email": "350646436@qq.com"
+  },
+  "directories": {
+    "lib": "./lib",
+    "test": "./test"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-export-default-from": "^7.5.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2"
+  },
+  "dependencies": {
+    "core-js": "^3.4.1"
+  },
+  "files": [
+    "es",
+    "lib",
+    "test",
+    "src"
+  ]
+}
