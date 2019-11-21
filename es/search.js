@@ -15,6 +15,10 @@ import "core-js/modules/web.dom-collections.iterator";
 import parse from './parse';
 
 function genUrl(url, params) {
+  if (params === void 0) {
+    params = {};
+  }
+
   var paramsKeys = Object.keys(params);
   var query = paramsKeys.length ? '?' + paramsKeys.map(function (key) {
     return key + "=" + encodeURIComponent(params[key]);
@@ -52,4 +56,5 @@ search.remove = function (url, params) {
   return genUrl(url, params);
 };
 
+search.clear = genUrl;
 export default search;
