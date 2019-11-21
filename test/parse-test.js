@@ -2,16 +2,18 @@ const parse = require('../lib/parse').default
 const expect = require('chai').expect
 
 const result = {
-  origin: 'https://www.baidu.com:1000',
+  href: 'https://www.baidu.com:3333/',
+  origin: 'https://www.baidu.com:3333',
   protocol: 'https',
+  host: 'www.baidu.com:3333',
   hostname: 'www.baidu.com',
-  port: '1000',
+  port: '3333',
   pathname: '/s',
   search: { ie: 'UTF-8', wd: 'hashchange导致jssdk失效' },
   hash: { pathname: 'aaa/bbb', search: { name: 'jack' } }
 }
 const url =
-  'https://www.baidu.com:1000/s?ie=UTF-8&wd=hashchange%E5%AF%BC%E8%87%B4jssdk%E5%A4%B1%E6%95%88#aaa/bbb?name=jack'
+  'https://www.baidu.com:3333/s?ie=UTF-8&wd=hashchange%E5%AF%BC%E8%87%B4jssdk%E5%A4%B1%E6%95%88#aaa/bbb?name=jack'
 const urlResult = parse.url(url)
 const searchResult = parse.search(url)
 const hashResult = parse.hash(url)

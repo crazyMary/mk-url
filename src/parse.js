@@ -13,8 +13,10 @@ const parse = {}
 
 parse.url = function(url) {
   return {
+    href: url.match(/^https?:\/{2}[^\/]+\//)[0],
     origin: url.replace(/(?<!\/)\/[^\/].+/, ''),
     protocol: url.match(/^https?/)[0],
+    host: url.match(/^https?:\/{2}([^\/]+)/)[1],
     hostname: url.match(/^https?:\/{2}([^:\/]+)/)[1],
     port: url.match(/:(\d+)\//) ? url.match(/:(\d+)\//)[1] : '',
     pathname: url.match(/https?:\/{2}[^\/]+(\/[^#\?]+)/)[1],
