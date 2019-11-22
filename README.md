@@ -10,8 +10,8 @@ const mk = require('@mk/url')
 const url = 'https://www.baidu.com:1000/s?ie=UTF-8&wd=hashchange%E5%AF%BC%E8%87%B4jssdk%E5%A4%B1%E6%95%88#aaa/bbb?name=jack'
 
 // 解析url:
-mk.parse.url(url)=>
-{
+mk.parse.url(url)
+=>{
   href: 'https://www.baidu.com:1000/',
   origin: 'https://www.baidu.com:1000',
   protocol: 'https',
@@ -24,10 +24,12 @@ mk.parse.url(url)=>
 }
 
 // 解析saerch:
-mk.parse.search(url)=>{ ie: 'UTF-8', wd: 'hashchange导致jssdk失效' }
+mk.parse.search(url)
+=>{ ie: 'UTF-8', wd: 'hashchange导致jssdk失效' }
 
 // 解析hash:
-mk.parse.hash(url)=>{ pathname: 'aaa/bbb', search: { name: 'jack' } }
+mk.parse.hash(url)
+=>{ pathname: 'aaa/bbb', search: { name: 'jack' } }
 ```
 
 ## url 的 search 增删改
@@ -36,15 +38,17 @@ mk.parse.hash(url)=>{ pathname: 'aaa/bbb', search: { name: 'jack' } }
 
 ```javascript
 const mk = require('@mk/url')
-const url =
-  'https://www.baidu.com:1000/s?ie=UTF-8&wd=hashchange%E5%AF%BC%E8%87%B4jssdk%E5%A4%B1%E6%95%88'
+const url = 'https://www.baidu.com:1000/s?ie=UTF-8&wd=hashchange%E5%AF%BC%E8%87%B4jssdk%E5%A4%B1%E6%95%88'
 
 // 增加参数,相同则修改
-mk.search.add(url, { name: 'jim' })=>'https://www.baidu.com:1000/s?ie=UTF-8&wd=hashchange%E5%AF%BC%E8%87%B4jssdk%E5%A4%B1%E6%95%88&name=jim'
+mk.search.add(url, { name: 'jim' })
+=>'https://www.baidu.com:1000/s?ie=UTF-8&wd=hashchange%E5%AF%BC%E8%87%B4jssdk%E5%A4%B1%E6%95%88&name=jim'
 
 // 删除参数
-mk.search.remove(url, ['wd'])=>'https://www.baidu.com:1000:1000/s?ie=UTF-8'
+mk.search.remove(url, ['wd'])
+=>'https://www.baidu.com:1000:1000/s?ie=UTF-8'
 
 // 清除参数
-mk.search.clear(url)=>'https://www.baidu.com:1000:1000/s'
+mk.search.clear(url)
+=>'https://www.baidu.com:1000:1000/s'
 ```
