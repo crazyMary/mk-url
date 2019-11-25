@@ -1,6 +1,6 @@
 {
   "name": "mk_url",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a package handling url parse and regeneration",
   "main": "lib/index.js",
   "module": "es/index.js",
