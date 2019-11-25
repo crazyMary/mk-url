@@ -1,7 +1,7 @@
 # mk_url
 
-> 浏览器端和 Node 原生模块都提供了处理 url 地址的 API,Node 的 url 处理器非常强大,但是无法在浏览器端使用,而浏览器端 location 对象只提供了对当前 url 的解析,而@mk/url 旨在对任意给定的 url 解析和改造.
-> ​ @mk/cli 接口提供 babel 处理过的 cjs 和 es6 模块输出
+> 浏览器端和 Node 原生模块都提供了处理 url 地址的 API,Node 的 url 处理器非常强大,但是无法在浏览器端使用,而浏览器端 location 对象只提供了对当前 url 的解析,而 mk_url 旨在对任意给定的 url 解析和改造.
+> ​ mk_url 接口提供 babel 处理过的 cjs 和 es6 模块输出
 
 ## url 对象解析
 
