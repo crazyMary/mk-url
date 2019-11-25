@@ -1,12 +1,13 @@
 function parseSearch2Object(search) {
-  return search
-    .substr(1)
-    .split('&')
-    .map(item => {
-      const [match, key, value] = item.match(/(.+?)=(.+)/)
-      return { [key]: decodeURIComponent(value) }
-    })
-    .reduce((target, current) => ({ ...target, ...current }), {})
+  return Object.fromEntries(
+    search
+      .substr(1)
+      .split('&')
+      .map(item => {
+        const [match, key, value] = item.match(/(.+?)=(.+)/)
+        return [key, decodeURIComponent(value)]
+      })
+  )
 }
 
 const parse = {}

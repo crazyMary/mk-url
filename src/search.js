@@ -21,13 +21,16 @@ search.add = function(url, params = {}) {
 search.remove = function(url, params = []) {
   const search = parse.search(url)
   const paramsSet = new Set(params)
-  params = Object.keys(search)
-    .filter(target => !paramsSet.has(target))
-    .map(target => ({ [target]: search[target] }))
-    .reduce((target, current) => ({ ...target, ...current }), {})
+  params = Object.fromEntries(
+    Object.keys(search)
+      .filter(target => !paramsSet.has(target))
+      .map(target => [target, search[target]])
+  )
   return genUrl(url, params)
 }
 
-search.clear = genUrl
+search.clear = function(url, ...args) {
+  return genUrl(url)
+}
 
 export default search

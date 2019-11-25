@@ -2,8 +2,8 @@ import "core-js/modules/es.array.filter";
 import "core-js/modules/es.array.iterator";
 import "core-js/modules/es.array.join";
 import "core-js/modules/es.array.map";
-import "core-js/modules/es.array.reduce";
 import "core-js/modules/es.object.assign";
+import "core-js/modules/es.object.from-entries";
 import "core-js/modules/es.object.keys";
 import "core-js/modules/es.object.to-string";
 import "core-js/modules/es.regexp.exec";
@@ -44,17 +44,16 @@ search.remove = function (url, params) {
 
   var search = parse.search(url);
   var paramsSet = new Set(params);
-  params = Object.keys(search).filter(function (target) {
+  params = Object.fromEntries(Object.keys(search).filter(function (target) {
     return !paramsSet.has(target);
   }).map(function (target) {
-    var _ref;
-
-    return _ref = {}, _ref[target] = search[target], _ref;
-  }).reduce(function (target, current) {
-    return Object.assign({}, target, {}, current);
-  }, {});
+    return [target, search[target]];
+  }));
   return genUrl(url, params);
 };
 
-search.clear = genUrl;
+search.clear = function (url) {
+  return genUrl(url);
+};
+
 export default search;
