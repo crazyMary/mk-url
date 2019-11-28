@@ -1,3 +1,5 @@
+import { defineExport } from './shared'
+
 function parseSearch2Object(search) {
   return Object.fromEntries(
     search
@@ -10,9 +12,7 @@ function parseSearch2Object(search) {
   )
 }
 
-const parse = {}
-
-parse.url = function(url) {
+function parseUrl(url) {
   return {
     href: url.match(/^https?:\/{2}[^\/]+\//)[0],
     origin: url.replace(/(?<!\/)\/[^\/].+/, ''),
@@ -22,11 +22,11 @@ parse.url = function(url) {
     port: url.match(/:(\d+)\//) ? url.match(/:(\d+)\//)[1] : '',
     pathname: url.match(/https?:\/{2}[^\/]+(\/[^#\?]+)/)[1],
     search: parse.search(url),
-    hash: parse.hash(url)
+    hash: parseHash(url)
   }
 }
 
-parse.hash = function(url) {
+function parseHash(url) {
   const hash = {}
   if (url.match(/#.*/)) {
     const hashStr = url.match(/#.*/)[0]
@@ -38,10 +38,16 @@ parse.hash = function(url) {
   return hash
 }
 
-parse.search = function(url) {
+function parseSearch(url) {
   return url.replace((url.match(/#.*/) || [''])[0], '').match(/\?/)
     ? parseSearch2Object(url.match(/\?[^#]+/)[0])
     : {}
 }
+
+const parse = defineExport({
+  url: parseUrl,
+  search: parseSearch,
+  hash: parseHash
+})
 
 export default parse

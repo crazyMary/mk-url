@@ -13,6 +13,7 @@ import "core-js/modules/es.string.replace";
 import "core-js/modules/es.string.search";
 import "core-js/modules/web.dom-collections.iterator";
 import parse from './parse';
+import { defineExport } from './shared';
 
 function genUrl(url, params) {
   if (params === void 0) {
@@ -26,18 +27,16 @@ function genUrl(url, params) {
   return url.replace(/\?[^#]+/, query);
 }
 
-var search = {};
-
-search.add = function (url, params) {
+function searchAdd(url, params) {
   if (params === void 0) {
     params = {};
   }
 
   params = Object.assign({}, parse.search(url), {}, params);
   return genUrl(url, params);
-};
+}
 
-search.remove = function (url, params) {
+function searchRemove(url, params) {
   if (params === void 0) {
     params = [];
   }
@@ -50,10 +49,15 @@ search.remove = function (url, params) {
     return [target, search[target]];
   }));
   return genUrl(url, params);
-};
+}
 
-search.clear = function (url) {
+function searchClear(url) {
   return genUrl(url);
-};
+}
 
+var search = defineExport({
+  add: searchAdd,
+  remove: searchRemove,
+  clear: searchClear
+});
 export default search;
