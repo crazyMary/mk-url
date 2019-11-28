@@ -1,4 +1,5 @@
 import parse from './parse'
+import { defineExport } from './shared'
 
 function genUrl(url, params = {}) {
   const paramsKeys = Object.keys(params)
@@ -11,14 +12,12 @@ function genUrl(url, params = {}) {
   return url.replace(/\?[^#]+/, query)
 }
 
-const search = {}
-
-search.add = function(url, params = {}) {
+function searchAdd(url, params = {}) {
   params = { ...parse.search(url), ...params }
   return genUrl(url, params)
 }
 
-search.remove = function(url, params = []) {
+function searchRemove(url, params = []) {
   const search = parse.search(url)
   const paramsSet = new Set(params)
   params = Object.fromEntries(
@@ -29,8 +28,14 @@ search.remove = function(url, params = []) {
   return genUrl(url, params)
 }
 
-search.clear = function(url, ...args) {
+function searchClear(url, ...args) {
   return genUrl(url)
 }
+
+const search = defineExport({
+  add: searchAdd,
+  remove: searchRemove,
+  clear: searchClear
+})
 
 export default search
