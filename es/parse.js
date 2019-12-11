@@ -4,7 +4,6 @@ import "core-js/modules/es.object.from-entries";
 import "core-js/modules/es.regexp.exec";
 import "core-js/modules/es.string.match";
 import "core-js/modules/es.string.replace";
-import "core-js/modules/es.string.search";
 import "core-js/modules/es.string.split";
 import { defineExport } from './shared';
 
@@ -28,7 +27,7 @@ function parseUrl(url) {
     hostname: url.match(/^https?:\/{2}([^:\/]+)/)[1],
     port: url.match(/:(\d+)\//) ? url.match(/:(\d+)\//)[1] : '',
     pathname: url.match(/https?:\/{2}[^\/]+(\/[^#\?]+)/)[1],
-    search: parse.search(url),
+    search: parseSearch(url),
     hash: parseHash(url)
   };
 }

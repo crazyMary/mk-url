@@ -21,7 +21,7 @@ function parseUrl(url) {
     hostname: url.match(/^https?:\/{2}([^:\/]+)/)[1],
     port: url.match(/:(\d+)\//) ? url.match(/:(\d+)\//)[1] : '',
     pathname: url.match(/https?:\/{2}[^\/]+(\/[^#\?]+)/)[1],
-    search: parse.search(url),
+    search: parseSearch(url),
     hash: parseHash(url)
   }
 }
