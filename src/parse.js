@@ -1,21 +1,19 @@
 import { defineExport } from './shared'
 
 function parseSearch2Object(search) {
-  return Object.fromEntries(
-    search
-      .substr(1)
-      .split('&')
-      .map(item => {
-        const [match, key, value] = item.match(/(.+?)=(.+)/)
-        return [key, decodeURIComponent(value)]
-      })
-  )
+  return search
+    .substr(1)
+    .split('&')
+    .map(item => {
+      const [match, key, value] = item.match(/(.+?)=(.+)/)
+      return { [key]: decodeURIComponent(value) }
+    })
+    .reduce((target, current) => ({ ...target, ...current }), {})
 }
 
 function parseUrl(url) {
   return {
     href: url.match(/^https?:\/{2}[^\/]+\//)[0],
-    origin: url.replace(/(?<!\/)\/[^\/].+/, ''),
     protocol: url.match(/^https?/)[0],
     host: url.match(/^https?:\/{2}([^\/]+)/)[1],
     hostname: url.match(/^https?:\/{2}([^:\/]+)/)[1],

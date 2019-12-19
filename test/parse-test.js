@@ -3,7 +3,6 @@ const expect = require('chai').expect
 
 const result = {
   href: 'https://www.baidu.com:3333/',
-  origin: 'https://www.baidu.com:3333',
   protocol: 'https',
   host: 'www.baidu.com:3333',
   hostname: 'www.baidu.com',
