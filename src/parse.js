@@ -1,8 +1,9 @@
 import { defineExport } from './shared'
 
 function parseSearch2Object(search) {
+  search = search.substr(1)
+  if (!search) return {}
   return search
-    .substr(1)
     .split('&')
     .map(item => {
       const [match, key, value] = item.match(/(.+?)=(.+)/)
@@ -38,7 +39,7 @@ function parseHash(url) {
 
 function parseSearch(url) {
   return url.replace((url.match(/#.*/) || [''])[0], '').match(/\?/)
-    ? parseSearch2Object(url.match(/\?[^#]+/)[0])
+    ? parseSearch2Object(url.match(/\?[^#]*/)[0])
     : {}
 }
 
