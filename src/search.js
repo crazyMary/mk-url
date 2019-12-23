@@ -9,7 +9,7 @@ function genUrl(url, params = {}) {
         .map(key => `${key}=${encodeURIComponent(params[key])}`)
         .join('&')
     : ''
-  return url.replace(/\?[^#]+/, query)
+  return url.replace(/(\?[^#]*)|(?=#|$)/, query)
 }
 
 function searchAdd(url, params = {}) {

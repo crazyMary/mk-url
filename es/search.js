@@ -24,7 +24,7 @@ function genUrl(url, params) {
   var query = paramsKeys.length ? '?' + paramsKeys.map(function (key) {
     return key + "=" + encodeURIComponent(params[key]);
   }).join('&') : '';
-  return url.replace(/\?[^#]+/, query);
+  return url.replace(/(\?[^#]*)|(?=#|$)/, query);
 }
 
 function searchAdd(url, params) {

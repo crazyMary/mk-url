@@ -8,7 +8,9 @@ import "core-js/modules/es.string.split";
 import { defineExport } from './shared';
 
 function parseSearch2Object(search) {
-  return search.substr(1).split('&').map(function (item) {
+  search = search.substr(1);
+  if (!search) return {};
+  return search.split('&').map(function (item) {
     var _ref;
 
     var _item$match = item.match(/(.+?)=(.+)/),
@@ -48,7 +50,7 @@ function parseHash(url) {
 }
 
 function parseSearch(url) {
-  return url.replace((url.match(/#.*/) || [''])[0], '').match(/\?/) ? parseSearch2Object(url.match(/\?[^#]+/)[0]) : {};
+  return url.replace((url.match(/#.*/) || [''])[0], '').match(/\?/) ? parseSearch2Object(url.match(/\?[^#]*/)[0]) : {};
 }
 
 var parse = defineExport({
