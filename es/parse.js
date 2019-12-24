@@ -1,10 +1,7 @@
-import "core-js/modules/es.array.map";
-import "core-js/modules/es.array.reduce";
-import "core-js/modules/es.object.assign";
-import "core-js/modules/es.regexp.exec";
-import "core-js/modules/es.string.match";
-import "core-js/modules/es.string.replace";
-import "core-js/modules/es.string.split";
+import "core-js/modules/es6.regexp.replace";
+import "core-js/modules/es6.object.assign";
+import "core-js/modules/es6.regexp.match";
+import "core-js/modules/es6.regexp.split";
 import { defineExport } from './shared';
 
 function parseSearch2Object(search) {

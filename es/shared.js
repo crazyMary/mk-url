@@ -1,6 +1,8 @@
-import "core-js/modules/es.array.reduce";
-import "core-js/modules/es.object.entries";
-import "core-js/modules/es.reflect.define-property";
+import "core-js/modules/es6.reflect.define-property";
+import "core-js/modules/web.dom.iterable";
+import "core-js/modules/es6.array.iterator";
+import "core-js/modules/es6.object.to-string";
+import "core-js/modules/es7.object.entries";
 export function defineExport(module) {
   return Object.entries(module).reduce(function (target, next) {
     var key = next[0],

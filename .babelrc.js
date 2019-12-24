@@ -8,10 +8,10 @@ module.exports = {
         modules: false,
         loose: true,
         useBuiltIns: 'usage',
-        corejs: '3',
         targets: {
           browsers: '> 0.25%, not dead'
-        }
+        },
+        corejs: 2
       }
     ]
   ],

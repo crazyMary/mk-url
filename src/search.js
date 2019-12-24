@@ -20,11 +20,10 @@ function searchAdd(url, params = {}) {
 function searchRemove(url, params = []) {
   const search = parse.search(url)
   const paramsSet = new Set(params)
-  params = Object.fromEntries(
-    Object.keys(search)
-      .filter(target => !paramsSet.has(target))
-      .map(target => [target, search[target]])
-  )
+  params = Object.keys(search)
+    .filter(target => !paramsSet.has(target))
+    .map(target => ({ [target]: search[target] }))
+    .reduce((target, current) => ({ ...target, ...current }), {})
   return genUrl(url, params)
 }
 
