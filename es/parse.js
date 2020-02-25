@@ -1,8 +1,8 @@
+import "core-js/modules/es6.object.freeze";
 import "core-js/modules/es6.regexp.replace";
 import "core-js/modules/es6.object.assign";
 import "core-js/modules/es6.regexp.match";
 import "core-js/modules/es6.regexp.split";
-import { defineExport } from './shared';
 
 function parseSearch2Object(search) {
   search = search.substr(1);
@@ -50,9 +50,10 @@ function parseSearch(url) {
   return url.replace((url.match(/#.*/) || [''])[0], '').match(/\?/) ? parseSearch2Object(url.match(/\?[^#]*/)[0]) : {};
 }
 
-var parse = defineExport({
+var parse = {
   url: parseUrl,
   search: parseSearch,
   hash: parseHash
-});
+};
+Object.freeze(parse);
 export default parse;

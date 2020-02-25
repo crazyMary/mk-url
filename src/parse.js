@@ -1,5 +1,3 @@
-import { defineExport } from './shared'
-
 function parseSearch2Object(search) {
   search = search.substr(1)
   if (!search) return {}
@@ -43,10 +41,12 @@ function parseSearch(url) {
     : {}
 }
 
-const parse = defineExport({
+const parse = {
   url: parseUrl,
   search: parseSearch,
   hash: parseHash
-})
+}
+
+Object.freeze(parse)
 
 export default parse

@@ -1,3 +1,4 @@
+import "core-js/modules/es6.object.freeze";
 import "core-js/modules/es6.string.iterator";
 import "core-js/modules/es6.set";
 import "core-js/modules/es6.regexp.search";
@@ -8,7 +9,6 @@ import "core-js/modules/es6.array.iterator";
 import "core-js/modules/es6.object.to-string";
 import "core-js/modules/es6.object.keys";
 import parse from './parse';
-import { defineExport } from './shared';
 
 function genUrl(url, params) {
   if (params === void 0) {
@@ -19,7 +19,9 @@ function genUrl(url, params) {
   var query = paramsKeys.length ? '?' + paramsKeys.map(function (key) {
     return key + "=" + encodeURIComponent(params[key]);
   }).join('&') : '';
-  return url.replace(/(\?[^#]*)|(?=#|$)/, query);
+  return url.replace(/(\?[^#]*)|(?=#|$)/, function () {
+    return query;
+  });
 }
 
 function searchAdd(url, params) {
@@ -54,9 +56,10 @@ function searchClear(url) {
   return genUrl(url);
 }
 
-var search = defineExport({
+var search = {
   add: searchAdd,
   remove: searchRemove,
   clear: searchClear
-});
+};
+Object.freeze(search);
 export default search;
