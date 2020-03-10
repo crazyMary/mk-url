@@ -4,7 +4,7 @@ function parseSearch2Object(search) {
   return search
     .split('&')
     .map(item => {
-      const [match, key, value] = item.match(/(.+?)=(.+)/)
+      const [match, key, value] = item.match(/(.+?)=(.*)/)
       return { [key]: decodeURIComponent(value) }
     })
     .reduce((target, current) => ({ ...target, ...current }), {})
