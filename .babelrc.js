@@ -11,12 +11,12 @@ module.exports = {
         targets: {
           browsers: '> 0.25%, not dead'
         },
-        corejs: 2
+        corejs: 3
       }
-    ]
+    ],
+    '@babel/typescript'
   ],
   plugins: [
     commonjs && ['@babel/transform-modules-commonjs', { loose: true }],
-    '@babel/proposal-export-default-from'
   ].filter(Boolean)
 }

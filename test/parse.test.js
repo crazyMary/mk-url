@@ -15,7 +15,7 @@ const url =
 
 describe('url unit', function() {
   it('expect deep equal with result', function() {
-    expect(parse.url(url)).to.deep.equal(result)
+    expect(parse(url)).to.deep.equal(result)
   })
 })
 

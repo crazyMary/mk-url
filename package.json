@@ -1,30 +1,36 @@
 {
   "name": "mk_url",
   "version": "1.1.2",
-  "description": "a package handling url parse and regeneration",
+  "description": "A Small Package Handling Url Parse And Regeneration",
+  "sideEffects": false,
+  "unpkg": "dist/mkUrl.min.js",
   "main": "lib/index.js",
   "module": "es/index.js",
   "scripts": {
     "test": "mocha",
-    "clean": "npx rimraf es lib",
-    "babel:es": "babel src --out-dir es",
-    "babel:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib",
-    "watch": "BABEL_ENV=commonjs babel src --watch --out-dir lib",
-    "build": "npm run clean && npm run babel:es && npm run babel:commonjs"
+    "clean": "npx rimraf es lib dist",
+    "build:es": "babel src --out-dir es --extensions .ts",
+    "build:commonjs": "BABEL_ENV=commonjs babel src --out-dir lib --extensions .ts",
+    "build:umd": "rollup -c -o dist/mkUrl.min.js",
+    "watch": "BABEL_ENV=commonjs babel src --watch --out-dir lib --extensions .ts",
+    "build": "npm run clean && npm run build:es && npm run build:commonjs && npm run build:umd"
   },
   "keywords": [
     "url",
     "search",
-    "parse"
+    "parse",
+    "hash"
   ],
   "author": {
     "name": "xiang liu",
     "email": "350646436@qq.com"
   },
-  "directories": {
-    "lib": "./lib",
-    "test": "./test"
-  },
+  "files": [
+    "dist",
+    "lib",
+    "src",
+    "es"
+  ],
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -33,16 +39,22 @@
   "devDependencies": {
     "@babel/cli": "^7.7.0",
     "@babel/core": "^7.7.2",
-    "@babel/plugin-proposal-export-default-from": "^7.5.2",
     "@babel/plugin-transform-modules-commonjs": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
+    "@babel/preset-typescript": "^7.9.0",
     "chai": "^4.2.0",
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "rollup": "^2.1.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.26.0"
   },
   "dependencies": {
-    "core-js": "2"
+    "core-js": "3"
   },
   "engines": {
-    "node": ">=8.9.0"
+    "node": ">=10.0.0"
   }
 }

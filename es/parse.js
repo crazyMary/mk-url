@@ -1,9 +1,17 @@
-import "core-js/modules/es6.object.freeze";
-import "core-js/modules/es6.regexp.replace";
-import "core-js/modules/es6.object.assign";
-import "core-js/modules/es6.regexp.match";
-import "core-js/modules/es6.regexp.split";
+import "core-js/modules/es.array.map";
+import "core-js/modules/es.array.reduce";
+import "core-js/modules/es.object.assign";
+import "core-js/modules/es.regexp.exec";
+import "core-js/modules/es.string.match";
+import "core-js/modules/es.string.replace";
+import "core-js/modules/es.string.search";
+import "core-js/modules/es.string.split";
 
+/**
+ * @description: 参数字符转对象
+ * @param {string} search url参数字符
+ * @return {SearchInterface}  参数对象
+ */
 function parseSearch2Object(search) {
   search = search.substr(1);
   if (!search) return {};
@@ -11,7 +19,6 @@ function parseSearch2Object(search) {
     var _ref;
 
     var _item$match = item.match(/(.+?)=(.*)/),
-        match = _item$match[0],
         key = _item$match[1],
         value = _item$match[2];
 
@@ -20,8 +27,14 @@ function parseSearch2Object(search) {
     return Object.assign({}, target, {}, current);
   }, {});
 }
+/**
+ * @description: 解析url
+ * @param {string} url url
+ * @return {ParseInterface} ParseInterface
+ */
 
-function parseUrl(url) {
+
+function parse(url) {
   return {
     href: url.match(/^https?:\/{2}[^\/]+\//)[0],
     protocol: url.match(/^https?/)[0],
@@ -29,13 +42,22 @@ function parseUrl(url) {
     hostname: url.match(/^https?:\/{2}([^:\/]+)/)[1],
     port: url.match(/:(\d+)\//) ? url.match(/:(\d+)\//)[1] : '',
     pathname: url.match(/https?:\/{2}[^\/]+(\/[^#\?]+)/)[1],
-    search: parseSearch(url),
-    hash: parseHash(url)
+    search: parse.search(url),
+    hash: parse.hash(url)
   };
 }
+/**
+ * @description: 解析hash对象
+ * @param {string} url url
+ * @return {HashInterface} HashInterface
+ */
 
-function parseHash(url) {
-  var hash = {};
+
+parse.hash = function (url) {
+  var hash = {
+    pathname: '',
+    search: {}
+  };
 
   if (url.match(/#.*/)) {
     var hashStr = url.match(/#.*/)[0];
@@ -44,16 +66,16 @@ function parseHash(url) {
   }
 
   return hash;
-}
-
-function parseSearch(url) {
-  return url.replace((url.match(/#.*/) || [''])[0], '').match(/\?/) ? parseSearch2Object(url.match(/\?[^#]*/)[0]) : {};
-}
-
-var parse = {
-  url: parseUrl,
-  search: parseSearch,
-  hash: parseHash
 };
-Object.freeze(parse);
+/**
+ * @description: 解析search对象
+ * @param {string} url url
+ * @return {SearchInterface} SearchInterface
+ */
+
+
+parse.search = function (url) {
+  return url.replace((url.match(/#.*/) || [''])[0], '').match(/\?/) ? parseSearch2Object(url.match(/\?[^#]*/)[0]) : {};
+};
+
 export default parse;
