@@ -26,13 +26,6 @@ import parse from './parse';
 var search = function search(url) {
   return parse.search(url);
 };
-/**
- * @description: 添加参数方法
- * @param {string} url url
- * @param {stringObj} params 参数对象
- * @return: 生成的url
- */
-
 
 search.add = function (url, params) {
   if (params === void 0) {
@@ -42,13 +35,6 @@ search.add = function (url, params) {
   params = Object.assign({}, parse.search(url), {}, params);
   return genUrl(url, params);
 };
-/**
- * @description: 移除参数
- * @param {string} url url
- * @param {string[]} params 移除的参数
- * @return: 生成的url
- */
-
 
 search.remove = function (url, params) {
   if (params === void 0) {
@@ -68,12 +54,6 @@ search.remove = function (url, params) {
   }, {});
   return genUrl(url, paramsObj);
 };
-/**
- * @description: 清除url参数
- * @param {string} url url
- * @return: 清除参数的url
- */
-
 
 search.clear = function (url) {
   return genUrl(url);

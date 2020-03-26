@@ -1,3 +1,7 @@
+/*
+ * @Author: zeqi
+ * @Date: 2019-12-31 15:23:19
+ */
 const commonjs = process.env.BABEL_ENV === 'commonjs'
 
 module.exports = {
@@ -17,6 +21,6 @@ module.exports = {
     '@babel/typescript'
   ],
   plugins: [
-    commonjs && ['@babel/transform-modules-commonjs', { loose: true }],
+    commonjs && ['@babel/transform-modules-commonjs', { loose: true }]
   ].filter(Boolean)
 }

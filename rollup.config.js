@@ -7,7 +7,7 @@ import resolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
-import typescript from 'rollup-plugin-typescript2'
+
 export default {
   input: 'src/index.ts',
   output: {
@@ -20,8 +20,9 @@ export default {
       exclude: 'node_modules/**', // 只编译我们的源代码
       extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx']
     }),
-    commonjs(),
-    typescript(),
+    commonjs({
+      extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx']
+    }),
     terser({
       compress: {
         pure_getters: true,

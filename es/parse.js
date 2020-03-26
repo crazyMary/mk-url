@@ -7,6 +7,11 @@ import "core-js/modules/es.string.replace";
 import "core-js/modules/es.string.search";
 import "core-js/modules/es.string.split";
 
+/*
+ * @Author: zeqi
+ * @Date: 2020-03-10 09:37:17
+ */
+
 /**
  * @description: 参数字符转对象
  * @param {string} search url参数字符
@@ -16,25 +21,20 @@ function parseSearch2Object(search) {
   search = search.substr(1);
   if (!search) return {};
   return search.split('&').map(function (item) {
-    var _ref;
+    var _ref2;
 
-    var _item$match = item.match(/(.+?)=(.*)/),
-        key = _item$match[1],
-        value = _item$match[2];
+    var _ref = item.match(/(.+?)=(.*)/),
+        match = _ref[0],
+        key = _ref[1],
+        value = _ref[2];
 
-    return _ref = {}, _ref[key] = decodeURIComponent(value), _ref;
+    return _ref2 = {}, _ref2[key] = decodeURIComponent(value), _ref2;
   }).reduce(function (target, current) {
     return Object.assign({}, target, {}, current);
   }, {});
 }
-/**
- * @description: 解析url
- * @param {string} url url
- * @return {ParseInterface} ParseInterface
- */
 
-
-function parse(url) {
+var parse = function parse(url) {
   return {
     href: url.match(/^https?:\/{2}[^\/]+\//)[0],
     protocol: url.match(/^https?/)[0],
@@ -45,13 +45,7 @@ function parse(url) {
     search: parse.search(url),
     hash: parse.hash(url)
   };
-}
-/**
- * @description: 解析hash对象
- * @param {string} url url
- * @return {HashInterface} HashInterface
- */
-
+};
 
 parse.hash = function (url) {
   var hash = {
@@ -67,12 +61,6 @@ parse.hash = function (url) {
 
   return hash;
 };
-/**
- * @description: 解析search对象
- * @param {string} url url
- * @return {SearchInterface} SearchInterface
- */
-
 
 parse.search = function (url) {
   return url.replace((url.match(/#.*/) || [''])[0], '').match(/\?/) ? parseSearch2Object(url.match(/\?[^#]*/)[0]) : {};

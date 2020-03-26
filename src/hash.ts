@@ -3,23 +3,23 @@
  * @Date: 2020-03-02 15:26:16
  */
 import parse from './parse'
+import { HashModuleInterface, objParamType } from '../index'
 
-type stringObj = { [propName: string]: string }
-interface HashModuleInterface {
-  add: (url: string, params?: stringObj) => string
-  remove: (url: string, params?: string[]) => string
-}
 interface HashInterface {
   pathname: string
   search: { [propName: string]: string }
 }
-
+/**
+ * @description: 获取hash参数
+ * @param {string} url url1
+ * @return: hash对象
+ */
 const hash: HashModuleInterface = function(url: string): HashInterface {
   return parse.hash(url)
 }
 
-hash.add = function(url: string, params: stringObj = {}): string {
-  const existParams: stringObj = parse.hash(url).search
+hash.add = function(url: string, params: objParamType = {}): string {
+  const existParams: objParamType = parse.hash(url).search
   params = { ...existParams, ...params }
   return genUrl(url, params, existParams)
 }
@@ -36,8 +36,8 @@ hash.remove = function(url: string, params: string[] = []): string {
 
 function genUrl(
   url: string,
-  params: stringObj = {},
-  existParams: stringObj = {}
+  params: objParamType = {},
+  existParams: objParamType = {}
 ): string {
   const paramsKeys = Object.keys(params)
   const query = paramsKeys.length

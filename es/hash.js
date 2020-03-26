@@ -21,6 +21,11 @@ import "core-js/modules/web.dom-collections.iterator";
  */
 import parse from './parse';
 
+/**
+ * @description: 获取hash参数
+ * @param {string} url url1
+ * @return: hash对象
+ */
 var hash = function hash(url) {
   return parse.hash(url);
 };

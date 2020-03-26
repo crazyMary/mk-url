@@ -1,23 +1,13 @@
-interface ParseInterface {
-  href: string
-  protocol: string
-  host: string
-  hostname: string
-  pathname: string
-  port: string
-  search: SearchInterface
-  hash: HashInterface
-}
-
-interface SearchInterface {
-  [propName: string]: string
-}
-
-interface HashInterface {
-  pathname: string
-  search: { [propName: string]: string }
-}
-
+/*
+ * @Author: zeqi
+ * @Date: 2020-03-10 09:37:17
+ */
+import {
+  SearchInterface,
+  HashInterface,
+  ParseModuleInterface,
+  ParseInterface
+} from '../index'
 /**
  * @description: 参数字符转对象
  * @param {string} search url参数字符
@@ -29,18 +19,13 @@ function parseSearch2Object(search: string): SearchInterface {
   return search
     .split('&')
     .map(item => {
-      const [, key, value] = item.match(/(.+?)=(.*)/)
+      const [match, key, value] = <string[]>item.match(/(.+?)=(.*)/)
       return { [key]: decodeURIComponent(value) }
     })
     .reduce((target, current) => ({ ...target, ...current }), {})
 }
 
-/**
- * @description: 解析url
- * @param {string} url url
- * @return {ParseInterface} ParseInterface
- */
-function parse(url: string): ParseInterface {
+const parse: ParseModuleInterface = function(url: string): ParseInterface {
   return {
     href: (<string[]>url.match(/^https?:\/{2}[^\/]+\//))[0],
     protocol: (<string[]>url.match(/^https?/))[0],
@@ -52,11 +37,7 @@ function parse(url: string): ParseInterface {
     hash: parse.hash(url)
   }
 }
-/**
- * @description: 解析hash对象
- * @param {string} url url
- * @return {HashInterface} HashInterface
- */
+
 parse.hash = function(url: string): HashInterface {
   const hash: HashInterface = { pathname: '', search: {} }
   if (url.match(/#.*/)) {
@@ -68,11 +49,7 @@ parse.hash = function(url: string): HashInterface {
   }
   return hash
 }
-/**
- * @description: 解析search对象
- * @param {string} url url
- * @return {SearchInterface} SearchInterface
- */
+
 parse.search = function(url: string): SearchInterface {
   return url.replace((url.match(/#.*/) || [''])[0], '').match(/\?/)
     ? parseSearch2Object((<string[]>url.match(/\?[^#]*/))[0])
